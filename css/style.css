@@ -9,12 +9,14 @@ body {
     height: 100px;
 }
 
-.header{
+.porArriba{
     z-index: 1;
 }
 
-.fondoIndex {
-    z-index: 0;
-    position: absolute;
-    top: 0px;
+.mainOpciones {
+    font-size: 4rem;
+}
+
+.mainTextoOpciones {
+    font-size: 2.5rem;
 }
