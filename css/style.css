@@ -7,6 +7,18 @@ body {
 .iconoHeader{
     width: 100px;
     height: 100px;
+    transition: 0.5s;
+}
+
+.iconoHeader:hover{
+    transform: scale(1.2);
+}
+
+.headerUl li a{
+    color: white;
+}
+.headerUl li a:hover {
+    color: rgb(77, 76, 76);
 }
 
 .porArriba{
@@ -15,8 +27,19 @@ body {
 
 .mainOpciones {
     font-size: 4rem;
+    text-shadow: rgb(238, 237, 234) 1px 0 10px;
+    transition: all 0.4s;
+}
+
+.mainOpciones:hover {
+    transform: scale(1.03);
+}
+
+.mainOpcionesLink {
+    text-decoration: none;
 }
 
 .mainTextoOpciones {
-    font-size: 2.5rem;
+    font-size: 3rem;
+    line-height: 1;
 }
