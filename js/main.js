@@ -40,9 +40,10 @@ const renderProductos = () => {
         contenido += `
             <div id="${index + 1}" class="carousel-item ${producto.nombre === "BLUE CLOVER" ? 'active' : ''}">
                 <div class="container d-flex flex-row"> 
-                    <img src="${producto.imagen}" class="d-block w-25" alt="pastilla de éxtasis de nombre ${producto.nombre}">
-                    <div class="d-flex flex-column informacionProducto text-white">
+                    <img src="${producto.imagen}" class="d-block w-50" alt="pastilla de éxtasis de nombre ${producto.nombre}">
+                    <div class="d-flex flex-column informacionProducto text-white w-25">
                         <h2 class="tituloProducto">${producto.nombre}</h2>
+                        <p class="h3">GOODTIMES LIMITED</p>
                         <div class="estrellasProducto">
                             <i class="bi bi-star-fill estrellas"></i>
                             <i class="bi bi-star-fill estrellas"></i>
@@ -54,7 +55,7 @@ const renderProductos = () => {
                         <div class="descripcionProducto">${producto.descripcion}</div>
                         <div class="sugerenciasProducto">${producto.sugerencias}</div>
                     </div>
-                    <div class="compraProducto text-white">
+                    <div class="compraProducto text-white w-25">
                         <p>Guaranteed delivery within 4 workdays. Choose premium delivery at checkout for faster shipping options. <span>Free shipping Worldwide <a>Learn more about our shipment methods</a></span></p>
                         <div class="stockProducto">En stock</div>
                         <div class="cantidadElegidaProducto">Qty: <span>1</span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"><path fill="currentColor" d="M240 102c0 70-103.79 126.66-108.21 129a8 8 0 0 1-7.58 0C119.79 228.66 16 172 16 102a62.07 62.07 0 0 1 62-62c20.65 0 38.73 8.88 50 23.89C139.27 48.88 157.35 40 178 40a62.07 62.07 0 0 1 62 62"/></svg>
