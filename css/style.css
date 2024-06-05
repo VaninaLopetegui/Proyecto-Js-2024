@@ -74,3 +74,32 @@ body {
     border-bottom: 2px solid white;
     border-radius: 1%;
 }
+
+.contenedorContact {
+    border: 7px solid white;
+    border-radius: 2%;
+}
+
+.instagram{
+    background: linear-gradient(45deg, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888);;
+}
+
+.linkedin {
+    background-color: white;
+}
+
+.github {
+    background-color: rgb(44, 44, 44);
+}
+
+.contenedorContact h1 {
+    font-size: 4rem;
+}
+
+.contenedorContact div a{
+    text-decoration: none;
+}
+
+.contenedorContact div{
+    border-radius: 6%;
+}
