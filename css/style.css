@@ -60,3 +60,17 @@ body {
 .estrellas.checked{
     color: gold;
 }
+
+.botonCarrito {
+    cursor: pointer;
+}
+
+.imgprodCarrito img{
+    width: 80px;
+    height: 80px;
+}
+
+.productoCarrito {
+    border-bottom: 2px solid white;
+    border-radius: 1%;
+}

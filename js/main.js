@@ -1,3 +1,6 @@
+
+//                                                           SHOP.HTML
+
 class Producto {
     constructor (nombre, estrellas, precioBTC, precioETH, descripcion, stock, imagen, sugerencias){
         this.nombre = nombre,
@@ -29,12 +32,15 @@ productos.push(bluePill, greenPill, pinkPill, purplePill, redPill, yellowPill);
 
 
 const renderProductos = () => {
+    const carouselContenedor = document.getElementsByClassName("carouselContenedor")[0];
+    if (!carouselContenedor) return; 
+
     let contenido = "";
     productos.forEach((producto, index) => {
         contenido += `
             <div id="${index + 1}" class="carousel-item ${producto.nombre === "BLUE CLOVER" ? 'active' : ''}">
                 <div class="container d-flex flex-row"> 
-                    <img src="${producto.imagen}" class="d-block w-25 imagenProducto" alt="pastilla de éxtasis de nombre ${producto.nombre}">
+                    <img src="${producto.imagen}" class="d-block w-25" alt="pastilla de éxtasis de nombre ${producto.nombre}">
                     <div class="d-flex flex-column informacionProducto text-white">
                         <h2 class="tituloProducto">${producto.nombre}</h2>
                         <div class="estrellasProducto">
@@ -71,7 +77,7 @@ const renderProductos = () => {
         `
     })
     
-    document.getElementsByClassName("carouselContenedor")[0].innerHTML = contenido;
+    carouselContenedor.innerHTML += contenido;
     
     
     let estrellas = document.querySelectorAll(".estrellas");
@@ -105,50 +111,72 @@ const renderProductos = () => {
     });
 }
 
-document.addEventListener("DOMContentLoaded", renderProductos);
+renderProductos();
 
 const guardarEnLS = (clave, valor) =>{
     localStorage.setItem(clave, JSON.stringify(valor));
 }
 
-const obtenerDeLS = (clave) =>{
-    return JSON.parse(localStorage.getItem(clave));
+function obtenerDeLS (clave){
+    return JSON.parse(localStorage.getItem(clave)) || [];
 }
 
 const carritoUsuario = [];
 
-const contenedorProductos = document.getElementsByClassName("carouselContenedor")[0];
+const agregarAlCarrito = () =>{
+    const contenedorProductos = document.getElementsByClassName("carouselContenedor")[0];
+    if (!contenedorProductos) return; 
 
-contenedorProductos.addEventListener("click", e => {
-    if(e.target.classList.contains("botonCarrito")){
-        e.preventDefault();
-        // te muestra el contenedor que contiene al boton de carrito
-        const contenedorBotonCarrito = e.target.parentElement;
-        // traemos el producto tal cual se visualiza en el html entero con toda su info
-        const productoTarjeta = contenedorBotonCarrito.closest(".carousel-item");
-        if (productoTarjeta){
-            const productoNombre = productoTarjeta.querySelector(".tituloProducto").textContent;
-            if (productoNombre){
-                const producto = productos.find(producto => producto.nombre === productoNombre);
-                carritoUsuario.push(producto);
+    contenedorProductos.addEventListener("click", e => {
+        if(e.target.classList.contains("botonCarrito")){
+            e.preventDefault();
+            // te muestra el contenedor que contiene al boton de carrito
+            const contenedorBotonCarrito = e.target.parentElement;
+            // traemos el producto tal cual se visualiza en el html entero con toda su info
+            const productoTarjeta = contenedorBotonCarrito.closest(".carousel-item");
+            if (productoTarjeta){
+                const productoNombre = productoTarjeta.querySelector(".tituloProducto").textContent;
+                if (productoNombre){
+                    const producto = productos.find(producto => producto.nombre === productoNombre);
+                    carritoUsuario.push(producto);
+                } else {
+                    alert(`No se encontró un nombre de producto que coincida con ${productoNombre}`);
+                }
             } else {
-                alert(`No se encontró un nombre de producto que coincida con ${productoNombre}`);
+                alert("No se encontró card de este producto! :(")
             }
-        } else {
-            alert("No se encontró card de este producto! :(")
         }
-    }
-    guardarEnLS("carritoUsuario", carritoUsuario);
-});
+        guardarEnLS("carritoUsuario", carritoUsuario);
+    });
+}
 
-// const botonCarrito = document.getElementById("botonCarrito");
-// botonCarrito.addEventListener("click", () =>{
-//     debugger
-//     Toastify({
-//         text: "This is a toast",
-        
-//         duration: 3000
-        
-//         }).showToast();
-// })
+agregarAlCarrito();
 
+
+//                                                           TERMINA SHOP.HTML
+
+//                                                           CART.HTML
+
+const contenidoProductos = document.getElementById("contenidoProductos");
+
+let productosCarrito = obtenerDeLS("carritoUsuario");
+
+function renderCarrito (){
+    let contenido = "";
+    productosCarrito.forEach((producto) => {
+        contenido += `
+            <div class="productoCarrito d-flex justify-content-center">
+                <div class="imgprodCarrito">
+                    <img src="${producto.imagen}" alt="">
+                </div>
+                <div class="infoProducto d-flex justify-content-center align-items-center">
+                    <h4 class="h6 text-white p-2">Nombre: <span class="h5">${producto.nombre}</span></h4>
+                    <p class="h6 text-white p-2">Precio unitario: <span class="h5">${producto.precioBTC}</span> BTC // <span class="h5">${producto.precioETH}</span> ETH</p>
+                </div>
+            </div>
+        `
+    })
+    contenidoProductos.innerHTML = contenido;
+}
+
+renderCarrito();
