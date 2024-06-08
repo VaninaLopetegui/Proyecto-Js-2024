@@ -123,6 +123,31 @@ body {
     font-weight: bold;
 }
 
+.subtituloCards{
+    background: #29c429;
+    border-radius: 999px;
+    box-shadow: #cfcfcf 0 10px 20px -10px;
+    color: #FFFFFF;
+    font-size: 15px;
+    padding: 2px 10px;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.compraProducto .contenedorCompra{
+    border: 2px solid white;
+    border-radius: 2%;
+    font-size: 14px;
+}
+
+.contenedorCompra p span{
+    display: block;
+}
+
+.contenedorCompra p span a{
+    display: block;
+}
+
 /* termina shop.html */
 
 
