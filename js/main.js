@@ -59,19 +59,24 @@ const renderProductos = () => {
                         <div class="descripcionProducto">${producto.descripcion}</div>
                         <div class="sugerenciasProducto">${producto.sugerencias}</div>
                     </div>
-                    <div class="compraProducto text-white w-25 d-flex align-items-end justify-content-center">
-                        <div class="contenedorCompra d-flex flex-column justify-content-center align-items-center p-4 pb-3 align-items-end">
-                            <p>Guaranteed delivery within 4 workdays. Choose premium delivery at checkout for faster shipping options. <span class="pt-3">Free shipping Worldwide <a class="text-white" href="https://trollface.dk/">Learn more about our shipment methods</a></span></p>
-                            <div class="stockProducto">In Stock</div>
-                            <div class="cantidadElegidaProducto">Qty: <span>1</span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"><path fill="currentColor" d="M240 102c0 70-103.79 126.66-108.21 129a8 8 0 0 1-7.58 0C119.79 228.66 16 172 16 102a62.07 62.07 0 0 1 62-62c20.65 0 38.73 8.88 50 23.89C139.27 48.88 157.35 40 178 40a62.07 62.07 0 0 1 62 62"/></svg>
+                    <div class="compraProducto text-white w-25">
+                        <div class="contenedorCompra d-flex flex-column justify-content-center align-items-center p-4">
+                            <div class="w-75">
+                                <p>Guaranteed delivery within 4 workdays. Choose premium delivery at checkout for faster shipping options. <span class="pt-3">Free shipping Worldwide <a class="text-white" href="https://trollface.dk/">Learn more about our shipment methods</a></span></p>
                             </div>
-                            <div class="contenedorBotonCarrito">
+                            <div class="stockProducto w-75">In Stock</div>
+                            <div class="cantidadElegidaProducto w-75 mb-2 mt-2">
+                                <div>
+                                    Qty: <span>1</span> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"><path fill="currentColor" d="M240 102c0 70-103.79 126.66-108.21 129a8 8 0 0 1-7.58 0C119.79 228.66 16 172 16 102a62.07 62.07 0 0 1 62-62c20.65 0 38.73 8.88 50 23.89C139.27 48.88 157.35 40 178 40a62.07 62.07 0 0 1 62 62"/></svg>
+                                </div>
+                            </div>
+                            <div class="contenedorBotonCarrito w-75 text-center mb-2">
                                 <a id="botonCarrito" class="links text-white botonCarrito">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="currentColor" d="M17 18a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2M1 2h3.27l.94 2H20a1 1 0 0 1 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1l-.9 1.63l-.03.12a.25.25 0 0 0 .25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1zm6 16a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2m9-7l2.78-5H6.14l2.36 5z"/></svg>
                                     Add to Cart
                                 </a>
                             </div>
-                            <div class="botonComprar">
+                            <div class="botonComprar w-75 text-center">
                             <a class="links text-white" href="cart.html">
                                 ▷Buy now
                             </a>

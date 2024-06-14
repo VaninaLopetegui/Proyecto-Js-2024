@@ -11,6 +11,17 @@ body {
     overflow-x: hidden;
 }
 
+.carritoFlotante {
+    background-color: #1d1c1c;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+}
+
 /* termina general */
 
 /* header */
@@ -112,6 +123,11 @@ body {
 /* termina index.html */
 
 /* shop.html */
+
+.productos {
+    width: 85%;
+}
+
 .estrellas {
     font-size: 30px;
     transition: color 0.3s;
@@ -155,6 +171,17 @@ body {
 
 .contenedorCompra p span a{
     display: block;
+}
+
+.contenedorBotonCarrito, .botonComprar{  
+    border: 2px solid white;  
+    border-radius: .7rem;
+    font-size: 1.5rem;
+}
+
+.cantidadElegidaProducto {
+    border: 2px solid white;  
+    border-radius: .7rem;
 }
 
 /* termina shop.html */
