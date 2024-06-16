@@ -184,6 +184,10 @@ body {
     border-radius: .7rem;
 }
 
+.botonIncrementaProd {
+    cursor: pointer;
+}
+
 /* termina shop.html */
 
 /* safety.html */
