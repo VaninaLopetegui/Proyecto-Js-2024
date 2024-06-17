@@ -1,6 +1,4 @@
-
-//                                                           SHOP.HTML
-
+//                                                           SHOP.HTM
 class Producto {
     constructor (nombre, estrellas, precioBTC, precioETH, descripcion, stock, imagen, sugerencias){
         this.nombre = nombre,
@@ -72,13 +70,13 @@ const renderProductos = () => {
                                 </div>
                             </div>
                             <div class="contenedorBotonCarrito w-75 text-center mb-2">
-                                <a id="botonCarrito" class="links text-white botonCarrito">
+                                <a class="links text-white botonCarrito">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="currentColor" d="M17 18a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2M1 2h3.27l.94 2H20a1 1 0 0 1 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1l-.9 1.63l-.03.12a.25.25 0 0 0 .25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1zm6 16a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2m9-7l2.78-5H6.14l2.36 5z"/></svg>
                                     Add to Cart
                                 </a>
                             </div>
-                            <div class="botonComprar w-75 text-center">
-                            <a class="links text-white" href="cart.html">
+                            <div class="contenedorBotonComprar w-75 text-center">
+                            <a class="links text-white botonComprar" href="">
                                 ▷Buy now
                             </a>
                             </div>
@@ -104,8 +102,6 @@ const renderProductos = () => {
         })
     })
 }
-
-renderProductos();
 
 function alertaCarrito (){
     Toastify({
@@ -149,6 +145,26 @@ function agregarAlCarrito() {
             } else {
                 alert("No se encontró card de este producto! :(");
             }
+        } else if (e.target.closest(".botonComprar")){
+            e.preventDefault();
+            const contenedorBotonComprar = e.target.closest('.contenedorBotonComprar');
+            const productoTarjeta = contenedorBotonComprar.closest(".carousel-item");
+            if (productoTarjeta) {
+                const productoNombre = productoTarjeta.querySelector(".tituloProducto").textContent;
+                const cantidadElegida = parseInt(productoTarjeta.querySelector(".cantidadElegidaProducto span").textContent);
+                if (productoNombre) {
+                    const producto = productos.find(producto => producto.nombre === productoNombre);
+                    if (producto) {
+                        producto.cantidad = cantidadElegida;
+                        carritoLocalStorage(producto);
+                        window.location.href = "cart.html";
+                    }
+                } else {
+                    alert(`No se encontró un nombre de producto que coincida con ${productoNombre}`);
+                }
+            } else {
+                alert("No se encontró card de este producto! :(");
+            }
         }
     });
 }
@@ -164,8 +180,6 @@ function carritoLocalStorage(producto){
     guardarEnLS("carritoUsuario", carrito);
     alertaCarrito();
 }
-
-agregarAlCarrito();
 
 const incrementaProducto = () => {
     const contenedorProductos = document.getElementsByClassName("carouselContenedor")[0];
@@ -190,7 +204,22 @@ const incrementaProducto = () => {
     })
 }
 
-incrementaProducto();
+document.addEventListener("DOMContentLoaded", () => {
+    renderProductos();
+    agregarAlCarrito();
+    incrementaProducto();
+
+    const contenedorProductos = document.getElementsByClassName("carouselContenedor")[0];
+    if (contenedorProductos) {
+        contenedorProductos.addEventListener("click", e =>{
+            if (e.target.closest(".botonComprar a")) {
+                e.preventDefault();
+                agregarAlCarrito();
+            }
+        });
+    }
+});
+
 //                                                           TERMINA SHOP.HTML
 
 //                                                           CART.HTML
@@ -206,7 +235,7 @@ function renderCarrito (){
         contenido += `
             <div class="productoCarrito d-flex justify-content-center">
                 <div class="imgprodCarrito">
-                    <img src="${producto.imagen}" alt="">
+                    <img src="${producto.imagen}" alt="pastilla de éxtasis de nombre ${producto.nombre}">
                 </div>
                 <div class="infoProducto d-flex justify-content-center align-items-center">
                     <h4 class="h6 text-white p-2">Nombre: <span class="h5">${producto.nombre}</span></h4>
@@ -216,7 +245,7 @@ function renderCarrito (){
             </div>
         `
     })
-    contenidoProductos.innerHTML = contenido;
+    contenidoProductos.innerHTML += contenido;
 }
 
 renderCarrito();

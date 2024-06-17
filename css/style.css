@@ -94,6 +94,16 @@ body {
     border-radius: 1%;
 }
 
+.form-select {
+    background-color: #444;
+}
+
+.preciosProductos select{
+	cursor: pointer;
+	border:5px solid rgba(0,0,0,0.2);
+    border-radius: 12px;
+}
+
 /* termina cart.html */
 
 /* index.html */
@@ -173,7 +183,7 @@ body {
     display: block;
 }
 
-.contenedorBotonCarrito, .botonComprar{  
+.contenedorBotonCarrito, .contenedorBotonComprar{  
     border: 2px solid white;  
     border-radius: .7rem;
     font-size: 1.5rem;
@@ -232,13 +242,16 @@ body {
     background-color: #444;
     color: white;
 }
+
 .accordion-button-custom:not(.collapsed) {
-    background-color: #666;
+    background-color: #444;
     color: white;
 }
+
 .accordion-button-custom:focus {
     box-shadow: none;
 }
+
 .accordion-body {
     background-color: #333;
     color: white;
