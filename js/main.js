@@ -228,24 +228,43 @@ const contenidoProductos = document.getElementById("contenidoProductos");
 
 let productosCarrito = obtenerDeLS("carritoUsuario");
 
+const mostrarPrecioMoneda = e =>{
+    const monedaElegida = e.target.value.toUpperCase();
+    productosCarrito.forEach((producto, index) => {
+        const precioProdCarrito = document.getElementById(`precio-${index}`);
+        if (monedaElegida == "BITCOIN"){
+            precioProdCarrito.innerText = `${producto.precioBTC} BTC`
+        } else if (monedaElegida == "ETHEREUM"){
+            precioProdCarrito.innerText = `${producto.precioETH} ETH`
+        }
+    })
+}
+
+
 function renderCarrito (){
     if (!contenidoProductos) return; 
     let contenido = "";
-    productosCarrito.forEach((producto) => {
+    productosCarrito.forEach((producto, index) => {
         contenido += `
-            <div class="productoCarrito d-flex justify-content-center">
-                <div class="imgprodCarrito">
-                    <img src="${producto.imagen}" alt="pastilla de éxtasis de nombre ${producto.nombre}">
-                </div>
-                <div class="infoProducto d-flex justify-content-center align-items-center">
-                    <h4 class="h6 text-white p-2">Nombre: <span class="h5">${producto.nombre}</span></h4>
-                    <p class="h6 text-white p-2">Precio unitario: <span class="h5">${producto.precioBTC}</span> BTC // <span class="h5">${producto.precioETH}</span> ETH</p>
-                    <p class="h6 text-white p-2">Cantidad: <span class="h5">${producto.cantidad}</span></p>
-                </div>
-            </div>
+        <div class="productoCarrito d-flex justify-content-center">
+        <div class="imgprodCarrito">
+        <img src="${producto.imagen}" alt="pastilla de éxtasis de nombre ${producto.nombre}">
+        </div>
+        <div class="infoProducto d-flex justify-content-center align-items-center">
+        <h4 class="h6 text-white p-2">Nombre: <span class="h5">${producto.nombre}</span></h4>
+        <p class="h6 text-white p-2">Precio unitario: <span class="h5 precioProdCarrito" id="precio-${index}">${producto.precioBTC} BTC</span></p>
+        <p class="h6 text-white p-2">Cantidad: <span class="h5">${producto.cantidad}</span></p>
+        </div>
+        </div>
         `
     })
     contenidoProductos.innerHTML += contenido;
 }
 
-renderCarrito();
+document.addEventListener("DOMContentLoaded", () => {
+    renderCarrito();
+    const monedaSelect = document.getElementById("monedaSelect");
+    
+    monedaSelect.addEventListener("change", mostrarPrecioMoneda);
+});
+
