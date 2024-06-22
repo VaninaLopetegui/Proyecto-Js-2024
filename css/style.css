@@ -104,6 +104,45 @@ body {
     border-radius: 12px;
 }
 
+.btnFinCompra {
+    border: none;
+    width: 15em;
+    height: 4em;
+    border-radius: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    background: #1C1A1C;
+    cursor: pointer;
+    transition: all 450ms ease-in-out;
+}
+
+.sparkle {
+    fill: #AAAAAA;
+    transition: all 800ms ease;
+}
+
+.text {
+    font-weight: 600;
+    color: #AAAAAA;
+    font-size: medium;
+}
+
+.btnFinCompra:hover {
+    background: linear-gradient(0deg,#c9c9c9,#683FEA);
+    transform: translateY(2px);
+}
+
+.btnFinCompra:hover .text {
+    color: white;
+}
+
+.btnFinCompra:hover .sparkle {
+    fill: white;
+    transform: scale(1.2);
+} 
+
 /* termina cart.html */
 
 /* index.html */

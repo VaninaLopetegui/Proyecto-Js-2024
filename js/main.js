@@ -224,35 +224,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //                                                           CART.HTML
 
-const contenidoProductos = document.getElementById("contenidoProductos");
+const contenidoProductos = document.getElementById("productosElegidos");
 
 let productosCarrito = obtenerDeLS("carritoUsuario");
 
+const calcularTotal = (moneda) => {
+    let total = 0;
+    productosCarrito.forEach((producto) => {
+        if (moneda == "BITCOIN") {
+            total += producto.cantidad * producto.precioBTC;
+        } else if (moneda == "ETHEREUM") {
+            total += producto.cantidad * producto.precioETH;
+        }
+    });
+    return total;
+}
+
 const mostrarPrecioMoneda = e =>{
+    let total = 0;
     const monedaElegida = e.target.value.toUpperCase();
     productosCarrito.forEach((producto, index) => {
         const precioProdCarrito = document.getElementById(`precio-${index}`);
         if (monedaElegida == "BITCOIN"){
-            precioProdCarrito.innerText = `${producto.precioBTC} BTC`
+            precioProdCarrito.innerText = `${producto.precioBTC} BTC`;
+            total = total + producto.cantidad * producto.precioBTC;
         } else if (monedaElegida == "ETHEREUM"){
-            precioProdCarrito.innerText = `${producto.precioETH} ETH`
+            precioProdCarrito.innerText = `${producto.precioETH} ETH`;
+            total = total + producto.cantidad * producto.precioETH;
+        } else {
+            precioProdCarrito.innerText = `${producto.precioETH} ETH`;
+            total = total + producto.cantidad * producto.precioBTC;
         }
     })
+    const totalPagar = document.getElementById("cuentaFinalCarrito");
+    if (monedaElegida == "BITCOIN") {
+        totalPagar.innerHTML = `
+        <div class="text-white text-center h2">TOTAL : ${total.toFixed(4)} BTC</div>
+        <button class="btnFinCompra">
+            <span class="text">Finalizar compra</span>
+        </button>
+        `;
+    } else if (monedaElegida == "ETHEREUM") {
+        totalPagar.innerHTML = `
+        <div class="text-white h2">TOTAL : ${total.toFixed(4)}ETH</div>
+        <button class="btnFinCompra">
+        <span class="text">Finalizar compra</span>
+        </button>
+        `;
+    }
 }
-
 
 function renderCarrito (){
     if (!contenidoProductos) return; 
     let contenido = "";
     productosCarrito.forEach((producto, index) => {
         contenido += `
-        <div class="productoCarrito d-flex justify-content-center">
+        <div class="productoCarrito d-flex">
+        <div class="w-100 infoProducto d-flex justify-content-between align-items-center">
         <div class="imgprodCarrito">
         <img src="${producto.imagen}" alt="pastilla de éxtasis de nombre ${producto.nombre}">
         </div>
-        <div class="infoProducto d-flex justify-content-center align-items-center">
         <h4 class="h6 text-white p-2">Nombre: <span class="h5">${producto.nombre}</span></h4>
-        <p class="h6 text-white p-2">Precio unitario: <span class="h5 precioProdCarrito" id="precio-${index}">${producto.precioBTC} BTC</span></p>
+        <p class="h6 text-white p-2">Precio unitario: <span class="h5 precioProdCarrito" id="precio-${index}"></span></p>
         <p class="h6 text-white p-2">Cantidad: <span class="h5">${producto.cantidad}</span></p>
         </div>
         </div>
@@ -266,5 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const monedaSelect = document.getElementById("monedaSelect");
     
     monedaSelect.addEventListener("change", mostrarPrecioMoneda);
+    const evento = { target: { value: 'BITCOIN' } };
+    mostrarPrecioMoneda(evento);
 });
 
