@@ -1,0 +1,68 @@
+[
+    {
+        "nombre": "BLUE CLOVER",
+        "estrellas": "5",
+        "precioBTC": "0.0029",
+        "precioETH": "0.0035",
+        "descripcion": "A high quality product our premium source, All the MDMA you will ever need, and much more. With 400mg of MDMA per pill it guarantees an extrordinary experience",
+        "stock": "3450",
+        "imagen": "../img/blue_pill.png",
+        "sugerencias": "",
+        "cantidad": "1"
+    },
+    {
+        "nombre": "GREEN SNOWFLAKE",
+        "estrellas": "3",
+        "precioBTC": "0.0044",
+        "precioETH": "0.0050",
+        "descripcion": "A high quality product our premium source, All the MDMA you will ever need, and much more. With 400mg of MDMA per pill it guarantees an extrordinary experience",
+        "stock": "4600",
+        "imagen": "../img/green_pill.png",
+        "sugerencias": "",
+        "cantidad": "1"
+    },
+    {
+        "nombre": "PINK SMILE",
+        "estrellas": "3",
+        "precioBTC": "0.0017",
+        "precioETH": "0.0023",
+        "descripcion": "A high quality product our premium source, All the MDMA you will ever need, and much more. With 400mg of MDMA per pill it guarantees an extrordinary experience",
+        "stock": "3000",
+        "imagen": "../img/pink_pill.png",
+        "sugerencias": "",
+        "cantidad": "1"
+    },
+    {
+        "nombre": "PURPLE FLOWER",
+        "estrellas": "4",
+        "precioBTC": "0.0021",
+        "precioETH": "0.0027",
+        "descripcion": "A high quality product our premium source, All the MDMA you will ever need, and much more. With 400mg of MDMA per pill it guarantees an extrordinary experience",
+        "stock": "8700",
+        "imagen": "../img/purple_pill.png",
+        "sugerencias": "",
+        "cantidad": "1"
+    },
+    {
+        "nombre": "RED PILL",
+        "estrellas": "2",
+        "precioBTC": "0.0013",
+        "precioETH": "0.0019",
+        "descripcion": "A high quality product our premium source, All the MDMA you will ever need, and much more. With 400mg of MDMA per pill it guarantees an extrordinary experience",
+        "stock": "6300",
+        "imagen": "../img/red_pill.png",
+        "sugerencias": "",
+        "cantidad": "1"
+    },
+    {
+        "nombre": "YELLOW EMOJI",
+        "estrellas": "5",
+        "precioBTC": "0.0050",
+        "precioETH": "0.0056",
+        "descripcion": "A high quality product our premium source, All the MDMA you will ever need, and much more. With 400mg of MDMA per pill it guarantees an extrordinary experience",
+        "stock": "6300",
+        "imagen": "../img/yellow_pill.png",
+        "sugerencias": "",
+        "cantidad": "1"
+    }
+]

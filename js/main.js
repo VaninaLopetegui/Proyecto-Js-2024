@@ -1,34 +1,21 @@
-//                                                           SHOP.HTM
-class Producto {
-    constructor (nombre, estrellas, precioBTC, precioETH, descripcion, stock, imagen, sugerencias){
-        this.nombre = nombre,
-        this.estrellas = estrellas,
-        this.precioBTC = precioBTC,
-        this.precioETH = precioETH,
-        this.descripcion = descripcion,
-        this.stock = stock,
-        this.imagen = imagen,
-        this.sugerencias = sugerencias,
-        this.cantidad = 1
-    }
-}
-
-let bluePill = new Producto("BLUE CLOVER", 5, 0.0029, 0.0035, "A high quality product our premium source, All the MDMA you will ever need, and much more. With 400mg of MDMA per pill it guarantees an extrordinary experience", 3450, "../img/blue_pill.png", "hi");
-
-let greenPill = new Producto("GREEN SNOWFLAKE", 3, 0.0044, 0.0050, "A high quality product our premium source, All the MDMA you will ever need, and much more. With 400mg of MDMA per pill it guarantees an extrordinary experience", 4600, "../img/green_pill.png", "hi");
-
-let pinkPill = new Producto("PINK SMILE", 3, 0.0017, 0.0023, "A high quality product our premium source, All the MDMA you will ever need, and much more. With 400mg of MDMA per pill it guarantees an extrordinary experience", 3000, "../img/pink_pill.png", "hi");
-
-let purplePill = new Producto("PURPLE FLOWER", 4, 0.0021, 0.0027, "A high quality product our premium source, All the MDMA you will ever need, and much more. With 400mg of MDMA per pill it guarantees an extrordinary experience", 8700, "../img/purple_pill.png", "hi");
-
-let redPill = new Producto("RED PILL", 2, 0.0013, 0.0019, "A high quality product our premium source, All the MDMA you will ever need, and much more. With 400mg of MDMA per pill it guarantees an extrordinary experience", 6300, "../img/red_pill.png", "hi");
-
-let yellowPill = new Producto("YELLOW EMOJI", 5, 0.0050, 0.0056, "A high quality product our premium source, All the MDMA you will ever need, and much more. With 400mg of MDMA per pill it guarantees an extrordinary experience", 6300, "../img/yellow_pill.png", "hi");
-
+//                                                         SHOP.HTM
 let productos = [];
 
-productos.push(bluePill, greenPill, pinkPill, purplePill, redPill, yellowPill);
-
+const cargarJSON = () =>{
+    fetch("../json/productos.json")
+    .then(function (res){
+        return res.json();
+    })
+    .then(function (data){
+        data.forEach((items) =>{
+            productos.push(items)
+        })
+        renderProductos(); 
+    })
+    .catch(error => {
+        console.error("Error al cargar los productos:" + error);
+    });
+}
 
 const renderProductos = () => {
     const carouselContenedor = document.getElementsByClassName("carouselContenedor")[0];
@@ -205,7 +192,7 @@ const incrementaProducto = () => {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    renderProductos();
+    cargarJSON();
     agregarAlCarrito();
     incrementaProducto();
 
@@ -266,7 +253,7 @@ const mostrarPrecioMoneda = e =>{
         `;
     } else if (monedaElegida == "ETHEREUM") {
         totalPagar.innerHTML = `
-        <div class="text-white h2">TOTAL : ${total.toFixed(4)}ETH</div>
+        <div class="text-white h2">TOTAL : ${total.toFixed(4)} ETH</div>
         <button class="btnFinCompra">
         <span class="text">Finalizar compra</span>
         </button>
@@ -280,14 +267,14 @@ function renderCarrito (){
     productosCarrito.forEach((producto, index) => {
         contenido += `
         <div class="productoCarrito d-flex">
-        <div class="w-100 infoProducto d-flex justify-content-between align-items-center">
-        <div class="imgprodCarrito">
-        <img src="${producto.imagen}" alt="pastilla de éxtasis de nombre ${producto.nombre}">
-        </div>
-        <h4 class="h6 text-white p-2">Nombre: <span class="h5">${producto.nombre}</span></h4>
-        <p class="h6 text-white p-2">Precio unitario: <span class="h5 precioProdCarrito" id="precio-${index}"></span></p>
-        <p class="h6 text-white p-2">Cantidad: <span class="h5">${producto.cantidad}</span></p>
-        </div>
+            <div class="w-100 infoProducto d-flex justify-content-between align-items-center">
+                <div class="imgprodCarrito">
+                    <img src="${producto.imagen}" alt="pastilla de éxtasis de nombre ${producto.nombre}">
+                </div>
+                <h4 class="h6 text-white p-2">Nombre: <span class="h5">${producto.nombre}</span></h4>
+                <p class="h6 text-white p-2">Precio unitario: <span class="h5 precioProdCarrito" id="precio-${index}"></span></p>
+                <p class="h6 text-white p-2">Cantidad: <span class="h5">${producto.cantidad}</span></p>
+            </div>
         </div>
         `
     })
@@ -297,6 +284,7 @@ function renderCarrito (){
 document.addEventListener("DOMContentLoaded", () => {
     renderCarrito();
     const monedaSelect = document.getElementById("monedaSelect");
+    if (!monedaSelect) return;
     
     monedaSelect.addEventListener("change", mostrarPrecioMoneda);
     const evento = { target: { value: 'BITCOIN' } };
