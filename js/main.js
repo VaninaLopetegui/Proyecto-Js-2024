@@ -4,6 +4,7 @@
 
 function productosEnElCarrito(){
     let carritoFlotante = document.getElementById("carritoFlotante");
+    if (!carritoFlotante) return;
     let carrito = obtenerDeLS("carritoUsuario");
     let cantidad = 0;
     if (carrito) {
@@ -242,20 +243,37 @@ const calcularTotal = (moneda) => {
     return total;
 }
 
+const eliminarProductoCart = (e) =>{
+    if (e.target.closest(".eliminarProducto")) {
+        e.preventDefault();
+        const productoCarrito = e.target.closest(".productoCarrito");
+        if (productoCarrito){
+            const productoNombre = productoCarrito.querySelector(".nombreProducto").textContent;
+            productosCarrito = productosCarrito.filter(producto => producto.nombre !== productoNombre);
+            guardarEnLS("carritoUsuario", productosCarrito);
+            productoCarrito.remove();
+        } else {
+            alert("No se encontró card de este producto! :(");
+        }
+    }
+}
+
 const mostrarPrecioMoneda = e =>{
     let total = 0;
     const monedaElegida = e.target.value.toUpperCase();
     productosCarrito.forEach((producto, index) => {
         const precioProdCarrito = document.getElementById(`precio-${index}`);
-        if (monedaElegida == "BITCOIN"){
-            precioProdCarrito.innerText = `${producto.precioBTC} BTC`;
-            total = total + producto.cantidad * producto.precioBTC;
-        } else if (monedaElegida == "ETHEREUM"){
-            precioProdCarrito.innerText = `${producto.precioETH} ETH`;
-            total = total + producto.cantidad * producto.precioETH;
-        } else {
-            precioProdCarrito.innerText = `${producto.precioETH} ETH`;
-            total = total + producto.cantidad * producto.precioBTC;
+        if (precioProdCarrito){
+            if (monedaElegida == "BITCOIN"){
+                precioProdCarrito.innerText = `${producto.precioBTC} BTC`;
+                total = total + producto.cantidad * producto.precioBTC;
+            } else if (monedaElegida == "ETHEREUM"){
+                precioProdCarrito.innerText = `${producto.precioETH} ETH`;
+                total = total + producto.cantidad * producto.precioETH;
+            } else {
+                precioProdCarrito.innerText = `${producto.precioETH} ETH`;
+                total = total + producto.cantidad * producto.precioBTC;
+            }
         }
     })
     const totalPagar = document.getElementById("cuentaFinalCarrito");
@@ -286,21 +304,27 @@ function renderCarrito (){
                 <div class="imgprodCarrito">
                     <img src="${producto.imagen}" alt="pastilla de éxtasis de nombre ${producto.nombre}">
                 </div>
-                <h4 class="h6 text-white p-2">Nombre: <span class="h5">${producto.nombre}</span></h4>
+                <h4 class="h6 text-white p-2">Nombre: <span class="h5 nombreProducto">${producto.nombre}</span></h4>
                 <p class="h6 text-white p-2">Precio unitario: <span class="h5 precioProdCarrito" id="precio-${index}"></span></p>
                 <p class="h6 text-white p-2">Cantidad: <span class="h5">${producto.cantidad}</span></p>
+                <button class="eliminarProducto">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
             </div>
         </div>
         `
     })
-    contenidoProductos.innerHTML += contenido;
+    contenidoProductos.innerHTML = contenido;
+
+    document.querySelectorAll('.eliminarProducto').forEach(boton => {
+        boton.addEventListener('click', eliminarProductoCart);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     const monedaSelect = document.getElementById("monedaSelect");
     if (!monedaSelect) return;
     renderCarrito();
-    
     monedaSelect.addEventListener("change", mostrarPrecioMoneda);
     const evento = { target: { value: 'BITCOIN' } };
     mostrarPrecioMoneda(evento);
