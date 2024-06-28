@@ -1,9 +1,31 @@
+
+//                                                         general
+
+
+function productosEnElCarrito(){
+    let carritoFlotante = document.getElementById("carritoFlotante");
+    let carrito = obtenerDeLS("carritoUsuario");
+    let cantidad = 0;
+    if (carrito) {
+        carrito.forEach((producto) =>{
+            cantidad = cantidad + (producto.cantidad)
+        })
+        console.log(`Número de productos en el carrito: ${cantidad}`);
+        if (cantidad > 0){
+            carritoFlotante.innerHTML += `
+                <span id="cantCarritoFlotante" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    ${cantidad}
+                </span>
+            `;
+        } 
+    } else {
+        console.log("No se encontró el carrito en LocalStorage.");
+    }
+}
+
+
 //                                                         SHOP.HTM
 let productos = [];
-
-const returnImplicito = (variable) =>{
-    if (!variable) return;
-}
 
 const cargarJSON = () =>{
     fetch("../json/productos.json")
@@ -23,7 +45,7 @@ const cargarJSON = () =>{
 
 const renderProductos = () => {
     const carouselContenedor = document.getElementsByClassName("carouselContenedor")[0];
-    returnImplicito(carouselContenedor);
+    if (!carouselContenedor) return;
 
     let contenido = "";
     productos.forEach((producto, index) => {
@@ -103,13 +125,14 @@ function alertaCarrito (){
 
 const guardarEnLS = (clave, valor) =>{
     localStorage.setItem(clave, JSON.stringify(valor));
+    productosEnElCarrito();
 }
 
 const obtenerDeLS = clave => JSON.parse(localStorage.getItem(clave)) || [];
 
 function agregarAlCarrito() {
     const contenedorProductos = document.getElementsByClassName("carouselContenedor")[0];
-    returnImplicito(contenedorProductos);
+    if (!contenedorProductos) return;
 
     contenedorProductos.addEventListener("click", e => {
         if (e.target.closest(".botonCarrito")) {
@@ -165,7 +188,7 @@ function carritoLocalStorage(producto){
 
 const incrementaProducto = () => {
     const contenedorProductos = document.getElementsByClassName("carouselContenedor")[0];
-    returnImplicito(contenedorProductos);
+    if (!contenedorProductos) return;
 
     contenedorProductos.addEventListener("click", e => {
         if (e.target.closest(".botonIncrementaProd")) {
@@ -190,6 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarJSON();
     agregarAlCarrito();
     incrementaProducto();
+    productosEnElCarrito();
 
     const contenedorProductos = document.getElementsByClassName("carouselContenedor")[0];
     if (contenedorProductos) {
@@ -253,7 +277,7 @@ const mostrarPrecioMoneda = e =>{
 }
 
 function renderCarrito (){
-    returnImplicito(contenidoProductos);
+    if (!contenidoProductos) return;
     let contenido = "";
     productosCarrito.forEach((producto, index) => {
         contenido += `
@@ -273,9 +297,9 @@ function renderCarrito (){
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    renderCarrito();
     const monedaSelect = document.getElementById("monedaSelect");
-    returnImplicito(monedaSelect);
+    if (!monedaSelect) return;
+    renderCarrito();
     
     monedaSelect.addEventListener("change", mostrarPrecioMoneda);
     const evento = { target: { value: 'BITCOIN' } };
